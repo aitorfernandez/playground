@@ -1,0 +1,23 @@
+*.pid
+*.swo
+*.swp
+*.tmp
+.DS_Store
+
+debug/
+target/
+
+Cargo.lock
+
+*-empty/
+*-review/
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
