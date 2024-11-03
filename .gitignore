@@ -17,7 +17,6 @@ dist
 dist-ssr
 *.local
 
-# Logs
 logs
 *.log
 npm-debug.log*
