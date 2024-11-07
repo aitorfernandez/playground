@@ -9,7 +9,7 @@ target/
 
 Cargo.lock
 
-*-empty/
+kko
 *-review/
 
 node_modules
