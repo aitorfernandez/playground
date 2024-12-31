@@ -13,12 +13,12 @@ struct Data {
 
 struct Reader {
     id: u32,
-    position: u32,
+    token: u32,
 }
 
 impl Reader {
-    fn new(id: u32, position: u32) -> Self {
-        Self { id, position }
+    fn new(id: u32, token: u32) -> Self {
+        Self { id, token }
     }
 
     async fn read(
@@ -37,7 +37,7 @@ impl Reader {
         let mut token_receiver = token_receiver.clone();
 
         while let Some(result) = data.next() {
-            while *token_receiver.borrow() != self.position {
+            while *token_receiver.borrow() != self.token {
                 token_receiver.changed().await.unwrap();
             }
 
@@ -98,13 +98,13 @@ impl TokenController {
     }
 
     async fn run(&self) {
-        let mut current_position = 0;
+        let mut current_token = 0;
         loop {
-            self.sender.send(current_position).unwrap();
+            self.sender.send(current_token).unwrap();
 
             sleep(Duration::from_secs(3)).await;
 
-            current_position = (current_position + 1) % self.total_readers;
+            current_token = (current_token + 1) % self.total_readers;
         }
     }
 }
