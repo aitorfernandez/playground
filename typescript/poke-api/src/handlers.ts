@@ -1,4 +1,3 @@
-import { log } from "console";
 import type { Application, Request, Response } from "express";
 
 import { getPokemonSpecie } from "./pokemon_specie";
@@ -14,6 +13,15 @@ export function config(app: Application) {
 		} catch (error: any) {
 			console.error(error);
 			res.status(500).json({ error: error.message });
+		}
+	});
+
+	app.post("/pokemon", async (req: Request, res: Response) => {
+		try {
+			// const body = req.body;
+			// const newPokemon = await createPokemon(body);
+		} catch (error: any) {
+			//
 		}
 	});
 }

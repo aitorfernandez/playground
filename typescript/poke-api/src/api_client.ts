@@ -27,4 +27,13 @@ export class ApiClient {
 			throw new ApiClientError(error.message || "Request failed");
 		}
 	}
+
+	async sendPost<T, R>(url: string, data: T): Promise<R> {
+		try {
+			const response = await axios.post<R>(url, data);
+			return response.data;
+		} catch (error: any) {
+			throw new ApiClientError(error.message || "Request failed");
+		}
+	}
 }

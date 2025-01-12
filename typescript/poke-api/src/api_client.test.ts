@@ -23,7 +23,21 @@ describe("ApiClient", () => {
 
 		mock.onGet(url).reply(200, mockResponse);
 
-		const data = await apiClient.sendGet(url);
+		const data = await apiClient.sendGet<typeof mockResponse>(url);
+		expect(data).toEqual(mockResponse);
+	});
+
+	it("should send data by post successfully", async () => {
+		const url = "https://example.com/api/users";
+		const body = { name: "Foo", email: "foo@foo.com" };
+		const mockResponse = { id: 1, name: "Foo", email: "foo@foo.com" };
+
+		mock.onPost(url, body).reply(201, mockResponse);
+
+		const data = await apiClient.sendPost<typeof body, typeof mockResponse>(
+			url,
+			body,
+		);
 		expect(data).toEqual(mockResponse);
 	});
 });
