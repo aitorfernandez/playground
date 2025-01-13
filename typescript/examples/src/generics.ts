@@ -42,3 +42,45 @@ const obj1 = {
 };
 
 printProperty(obj1, "id");
+
+type URLObject = { [k: string]: string };
+
+type VideoFormat = {
+	format360p: string;
+	format480p: string;
+	format720p: string;
+};
+
+type Subtitle = {
+	english: string;
+	german: string;
+};
+
+type LoadedKey<T> = {
+	format: T;
+	loaded: boolean;
+};
+
+async function isAvailable<T extends URLObject, K extends keyof T>(
+	obj: T,
+	format: K,
+): Promise<LoadedKey<K>> {
+	const data = await fetch(obj[format]);
+	return {
+		format,
+		loaded: data.status === 200,
+	};
+}
+
+const videos: VideoFormat = {
+	format360p: "format360",
+	format480p: "format480",
+	format720p: "format720",
+};
+
+(async () => {
+	const result = await isAvailable(videos, "format360p");
+	if (result.format === "format360p") {
+		//
+	}
+})();
